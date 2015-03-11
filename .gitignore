@@ -1,5 +1,5 @@
-.vagrant/*
-data/*
+.vagrant/
 .sass-cache/
 .bundle/
+data/
 vendor/
