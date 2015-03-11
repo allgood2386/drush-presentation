@@ -18,8 +18,11 @@
     When creating your own presentation get rid of this file. Start from scratch, it's fun!
     -->
     <link href="/stylesheets/taoti.css" media="screen" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="favicon.png" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="shortcut icon" href="bower_components/impress.js/favicon.png" />
+    <link rel="bower_components/impress.js/apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+    <script src="node_modules/highlight.js/lib/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <!--
 Body element is used by impress.js to set some useful class names, that will allow you to detect
@@ -61,15 +64,68 @@ it can be found later, when `hint` element is being described.
                 <li>Reset Accounts</li>
                 <li>Export Data</li>
                 <li>Trouble shoot production websites without having to actually log onto a device.</li>
-                <li>Deploy remotely. Don't deal with permissions and adding https repos because dealing with
-                multiple users is a pain.</li>
+                <li>Deploy remotely. Don't deal with permissions and adding https connection strings
+                    because dealing with multiple users and git is a pain.</li>
                 <li>Lock down your devices to a single user.</li>
-                <li>Write code for you. Seriously. Stop writing boiler plate commenting, test files, looking up hook
-                arguments.</li>
             </ul>
         </div>
-        <div class="step slide" data-x="1000" data-y="-1500">
-            <q>Would you like to <strong>impress your audience</strong> with <strong>stunning visualization</strong> of your talk?</q>
+        <div class="step slide" data-x="1000" data-y="960">
+            <ul>
+                <li>Write code for you. Seriously. Stop writing boiler plate commenting, test files, looking up hook
+                    arguments.</li>
+                <li>Give non-technical stakeholders of a site the ability to do simple tasks without having to
+                    track down a developer.</li>
+                <li>A lot more. Drush has it's own contrib eco system that is growing each day.</li>
+            </ul>
+        </div>
+        <div class="step slide" data-x="2000" data-y="0">
+            <h4>What developers are missing.</h4>
+            <p>The first and biggest thing is writing code over and over again.(yes I'm starting in drush contrib).<br>
+                <a href="https://www.drupal.org/project/module_builder">
+                    https://www.drupal.org/project/module_builder
+                </a>
+                and for Drupal 8 <a href="https://www.drupal.org/project/console">
+                    https://www.drupal.org/project/console
+                </a>(not drush, works the same though)
+            </p>
+        </div>
+        <div class="step slide" data-x="2000" data-y="500">
+            <h4>Export config from multiple environment using ctools and features. Don't wait for 'status' of
+                a feature.
+            </h4>
+            <p>Large sites with lots of features are slow to work with. Features UI is PAINFULLY slow.</p>
+            <p>Everytime you navigate to see the status of your feature it can take minutes per load. This
+            can very easily add to hours of overhead when troubleshooting configuration.</p>
+            <pre>drush @sitename.local features-diff feature_name</pre>
+        </div>
+        <div class="step slide" data-x="2000" data-y="1000">
+            <h4>Another example: I need to recreate code that is over several features!</h4>
+            Without drush:
+            <ul>
+                <li>Wait for features page to show status, find overridden.</li>
+                <li>Click recreate/download</li>
+                <li>Repeat x times</li>
+            </ul>
+            With drush: <pre><code>drush @sitename.local features-update-all -y</code></pre>
+            <img src="images/compiling.png">
+        </div>
+        <div class="step slide" data-x="2000" data-y="1500" data-width="2000">
+            With drush and nix magic (probably want to alias this one):
+            <pre><code>drush fd | grep -E 'Overridden[[:space:]]+$' \| sed -E 's/[[:space:]]*Enabled[[:space:]]*Overridden[[:space:]]*//' \ | sed -E 's/.*[[:space:]]//' \| xargs drush fd
+            </code></pre>
+            This line of code has saved me personally hundreds of hours. You wouldn't believe how much time waiting
+            for feature status can eat away 1-2 minutes at a time.
+        </div>
+        <div class="step slide">
+            <h4>Stop overridding php.ini settings.</h4>
+            <p>You/your developers would never overwite php.ini memory limits just to import a large file or
+                particularly large set of bash files right? Right?</p>
+            <p>
+                <img src="images/badroblowe.jpg" style="float:left; margin-right: 10px;"> Don't be poor decision
+                Rob Lowe. use php-cli.ini
+                and run your operations through separate user. The bad decision Rob Lowe leads to memory
+                hungry applications
+            </p>
         </div>
     </div>
 <script src="bower_components/impress.js/js/impress.js"></script>
