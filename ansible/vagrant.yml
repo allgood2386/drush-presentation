@@ -1,0 +1,13 @@
+---
+  - hosts: all
+    vars:
+      apache_vhosts:
+        # Additional properties: 'serveradmin, extra_parameters'.
+        - {servername: "drush.vagrant", documentroot: "/var/www/public"}
+    pre_tasks:
+      - name: Update apt
+        apt: update_cache=yes cache_valid_time=3600
+
+    roles:
+      - ansible-role-apache
+      - ansible-role-git

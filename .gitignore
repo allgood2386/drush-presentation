@@ -1,0 +1,4 @@
+.vagrant/*
+data/*
+.sass-cache/*
+.bundle/*

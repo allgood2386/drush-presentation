@@ -5,7 +5,7 @@
     "Rich Allen <rallen@taoti.com>"
   ],
   "description": "A Presentation on Drush.",
-  "main": "index.html",
+  "main": "public/index.html",
   "license": "MIT",
   "private": true,
   "ignore": [

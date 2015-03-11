@@ -1,0 +1,3 @@
+[submodule "ansible/roles"]
+	path = ansible/roles
+	url = git@bitbucket.org:taoticreative/ansible-roles.git
