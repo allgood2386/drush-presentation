@@ -1,0 +1,21 @@
+{
+  "name": "drushPresentation",
+  "version": "1.0.0",
+  "authors": [
+    "Rich Allen <rallen@taoti.com>"
+  ],
+  "description": "A Presentation on Drush.",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "impress.js": "~0.5.3"
+  }
+}
