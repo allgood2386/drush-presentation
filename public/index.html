@@ -21,8 +21,8 @@
     <link rel="shortcut icon" href="bower_components/impress.js/favicon.png" />
     <link rel="bower_components/impress.js/apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
-    <script src="node_modules/highlight.js/lib/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <link href="google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="google-code-prettify/prettify.js"></script>
 </head>
 <!--
 Body element is used by impress.js to set some useful class names, that will allow you to detect
@@ -37,7 +37,7 @@ be removed.
 The class name on body element also depends on currently active presentation step. More details about
 it can be found later, when `hint` element is being described.
 -->
-<body>
+<body onload="prettyPrint()">
     <div id="impress">
         <!--
         Here is where interesting thing start to happen.
@@ -84,46 +84,66 @@ it can be found later, when `hint` element is being described.
                     https://github.com/drush-ops/drush/blob/master/examples/example.aliases.drushrc.php
                 </a></p>
         </div>
-        <div class="step slide" data-x="4000">
-            <pre><code class="php">
-                /**
-                * @file
-                * somewebsite.aliases.drushrc.php
-                * Depends on the following env variables being set.
-                * Place in your ~/.drush/drushrc.php
-                * global $dev_user
-                * $dev_user = 'yourSSHUserName';
-                * Repeat for any other environments
-                * # ln -s $projectRoot/somewebsite/somewebsite.aliases.drushrc.php ~/.drush/
-                */
-                global $dev_user;
-                global $blkmsh_user;
-                $home = drush_server_home();
-                $aliases['dev'] = array('env' => 'dev',
-                'root' => '/var/www/vhosts/somewebsite.org/public/docroot',
-                'uri' => 'http://user:pass@somewebsite.taotidev.com',
-                'remote-user' => $dev_user,
-                'remote-host' => 'somewebsite.taotidev.com',
-                );
-                $aliases['prod'] = array(
-                'env' => 'prod',
-                'root' => '/var/www/somewebsite.org/htdocs/docroot',
-                'uri' => 'https://somewebsite.org',
-                'remote-user' => $blkmsh_user,
-                'remote-host' => 'somewebsite.org',
-                'path-aliases' => array(
-                '%drush' => '/optcd/scripts/drush',
-                '%site' => 'sites/default/',
-                ),
-                );
-                $aliases['vagrant'] = array(
-                'root' => '/var/www/docroot',
-                'uri' => 'http://somewebsite.vagrant',
-                'remote-user' => 'vagrant',
-                'remote-host' => 'somewebsite.vagrant',
-                'ssh-options' => "-p 22 -i " . $home . "/.vagrant.d/insecure_private_key",
-                );
-            </code></pre>
+        <div class="step slide" data-x="4000"><pre class="prettyprint linenums">
+/**
+* @file
+* somewebsite.aliases.drushrc.php
+* Depends on the following env variables being set.
+* Place in your ~/.drush/drushrc.php
+* global $dev_user
+* $dev_user = 'yourSSHUserName';
+* Repeat for any other environments
+* # ln -s $projectRoot/somewebsite/somewebsite.aliases.drushrc.php ~/.drush/
+*/
+global $dev_user;
+global $blkmsh_user;
+$home = drush_server_home();
+$aliases['dev'] = array('env' => 'dev',
+'root' => '/var/www/vhosts/somewebsite.org/public/docroot',
+'uri' => 'http://user:pass@somewebsite.taotidev.com',
+'remote-user' => $dev_user,
+'remote-host' => 'somewebsite.taotidev.com',
+);
+$aliases['prod'] = array(
+'env' => 'prod',
+'root' => '/var/www/somewebsite.org/htdocs/docroot',
+'uri' => 'https://somewebsite.org',
+'remote-user' => $blkmsh_user,
+'remote-host' => 'somewebsite.org',
+'path-aliases' => array(
+'%drush' => '/optcd/scripts/drush',
+'%site' => 'sites/default/',
+),
+);
+$aliases['vagrant'] = array(
+'root' => '/var/www/docroot',
+'uri' => 'http://somewebsite.vagrant',
+'remote-user' => 'vagrant',
+'remote-host' => 'somewebsite.vagrant',
+'ssh-options' => "-p 22 -i " . $home . "/.vagrant.d/insecure_private_key",
+);
+            </pre>
+        </div>
+        <div class="step slide" data-x="16000">
+            <h4>Ever update your project? Need fine tune control of versioning?</h4>
+            <ul>
+                <li>Drupal.org has structure that allows you to download any version of a project including
+                    dev and beta releases that drush hooks into.
+                </li>
+                <li>
+                    Combine with drush make to get the correct release with the patches you
+                    need.
+                </li>
+                <li>Update your sites quickly and easily.
+                    <pre class="prettyprint">
+drush @sitename.local up --lock=media,fieldcollection,mediacrop
+drush @sitename.local test-run --xml=/path/to/jenkins
+                    </pre>
+                </li>
+            </ul>
+            <p>Using git alone and updating by downloading and placing files you are almost promised that at some point
+            you will loose a patch or get non-dev version when you need it for functionality.</p>
+        </div>
         </div>
         <div class="step slide" data-x="12000">
             <h4>Stop overriding php.ini settings.</h4>
@@ -155,7 +175,7 @@ it can be found later, when `hint` element is being described.
             <p>Large sites with lots of features are slow to work with. Features UI is PAINFULLY slow.</p>
             <p>Everytime you navigate to see the status of your feature it can take minutes per load. This
             can very easily add to hours of overhead when troubleshooting configuration.</p>
-            <pre><code>drush @sitename.local features-diff feature_name</code></pre>
+            <pre class="prettyprint linenums">drush @sitename.local features-diff feature_name</pre>
         </div>
         <div class="step slide" data-x="8000">
             <h4>Another example: I need to recreate code that is over several features!</h4>
@@ -165,13 +185,16 @@ it can be found later, when `hint` element is being described.
                 <li>Click recreate/download</li>
                 <li>Repeat x times</li>
             </ul>
-            With drush: <pre><code>drush @sitename.local features-update-all -y</code></pre>
+            With drush: <pre class="prettyprint">drush @sitename.local features-update-all -y</pre>
             <img src="images/compiling.png">
         </div>
         <div class="step slide" data-x="9000">
             With drush and nix magic (probably want to alias this one):
-            <pre><code>drush fd | grep -E 'Overridden[[:space:]]+$' \| sed -E 's/[[:space:]]*Enabled[[:space:]]*Overridden[[:space:]]*//' \ | sed -E 's/.*[[:space:]]//' \| xargs drush fd
-            </code></pre>
+            <pre class="prettyprint">
+drush fd | grep -E 'Overridden[[:space:]]+$' \|
+sed -E 's/[[:space:]]*Enabled[[:space:]]*Overridden[[:space:]]*//' \ |
+sed -E 's/.*[[:space:]]//' \| xargs drush fd
+            </pre>
             This line of code has saved me personally hundreds of hours. You wouldn't believe how much time waiting
             for feature status can eat away 1-2 minutes at a time.
         </div>
@@ -179,15 +202,15 @@ it can be found later, when `hint` element is being described.
             <h4>Moving databases....constantly.</h4>
             <p>Drupal config is a pain because of how it's set up we are constantly moving databases around. Do this
             the smart way.
-            <pre><code>drush sql-sync @somesite.live @somesite.local</code></pre></p>
+            <pre class="prettyprint">drush sql-sync @somesite.live @somesite.local</pre></p>
             <p>Or you could:</p>
         </div>
         <div class="step slide" data-x="11000">
             <h4>It's your call</h4>
             <p>
-                <pre style="float:left; width:60%; margin-right: 10px; margin-top: 0px; display: inline;"><code>
+                <pre style="float:left; margin-right: 10px; margin-top: 0px; display: inline;" class="prettyprint">
     $ssh remoteEnv
-    $cat /var/www/drupal/sites/default/settings.php #check settings.php for table name
+    $cat /var/www/drupal/sites/default/settings.php #check settings.php for table name dfasdfasdfasdfaaaaaaaaasdaaaaaaaaaaaaaaaaaaaaaaa
     $mysqldump -uDrupal -p tablename > ~/somefile.sql
     $exit
     $scp remoteEnv:~/somefile.sql ~/Downloads
@@ -195,26 +218,27 @@ it can be found later, when `hint` element is being described.
     $ssh localEnv
     $cat /var/www/docroot/drupal/sites/default/settings.php
     $mysql -uSomeNewDrupalUser -p anotherNewTable < ~/somefile.sql
-                </code></pre><img style="display: inline;"src="images/no.gif">
+                </pre><img style="display: inline;"src="images/no.gif">
         </div>
         <div class="step slide" data-x="13000">
             <h4>Moving content</h4>
             <p>No reason to ever build a vbo view for exporting content. Use drush.</p>
-            <p><pre><code>drush @sitename.live ne-node-export --sql="SELECT nid FROM node where type='your_content_type' and status=0" > ~/myoutput.xml</code></pre></p>
+            <p><pre class="prettyprint">drush @sitename.live ne-node-export --sql="SELECT nid FROM node where type='your_content_type' and status=0" > ~/myoutput.xml</pre></p>
             <p>Need to debug a node on a live site? Don't want to pull down a 5GB db dump to your local? Don't want
-            to enable devel and debug on prod?</p><p><pre><code>drush @sitename.live ev "print_r(node_load(123);"</code></pre></p>
+            to enable devel and debug on prod?</p><p><pre class="prettyprint">drush @sitename.live ev "print_r(node_load(123);"</pre></p>
         </div>
         <div class="step slide" data-x="14000">
             <h4>Continuous Integration</h4>
             <p>Drush is a linchpin in the deployment process. Manual deployments work for simple sites but what
             happens when you have 10 codebases and 4 databases behind load balancers?</p>
             <p>Don't make your CI a collection of scripts for different servers. It's a mess.Remember this?</p>
-            <pre><code>drush sql-sync @sitename.staging @sitename</code></pre>
+            <pre>drush sql-sync @sitename.staging @sitename</pre>
             <p>Notice the second alias? no .env prefix, push your database to all environments/masters/slaves in one go
             drush aliases have hierarchy which allows you to deploy to sub/supersets depending on how you configure.</p>
         </div>
     </div>
     <!-- End impress container -->
 <script src="bower_components/impress.js/js/impress.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 <script>impress().init();</script>
 </body>

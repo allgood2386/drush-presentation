@@ -53,8 +53,17 @@ body {
 .extralight { font-weight: 300; letter-spacing: .1em; }
 .small { display: block; font-size: 20px; font-weight: 600; }
 
-code {
-  font-size: 14px;
+pre.prettyprint {
+  background: #ffffff;
+  display: block;
+  overflow: auto;
+  width: 100%;
+  max-width: 950px;
+  /* max-height: 600px; */
+  white-space: pre;
+  word-wrap: normal;
+  padding: 10px;
+  font-size: 20px;
 }
 
 /* COMMON STEP STYLES */
