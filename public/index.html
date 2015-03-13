@@ -197,7 +197,24 @@ it can be found later, when `hint` element is being described.
     $mysql -uSomeNewDrupalUser -p anotherNewTable < ~/somefile.sql
                 </code></pre><img style="display: inline;"src="images/no.gif">
         </div>
+        <div class="step slide" data-x="13000">
+            <h4>Moving content</h4>
+            <p>No reason to ever build a vbo view for exporting content. Use drush.</p>
+            <p><pre><code>drush @sitename.live ne-node-export --sql="SELECT nid FROM node where type='your_content_type' and status=0" > ~/myoutput.xml</code></pre></p>
+            <p>Need to debug a node on a live site? Don't want to pull down a 5GB db dump to your local? Don't want
+            to enable devel and debug on prod?</p><p><pre><code>drush @sitename.live ev "print_r(node_load(123);"</code></pre></p>
+        </div>
+        <div class="step slide" data-x="14000">
+            <h4>Continuous Integration</h4>
+            <p>Drush is a linchpin in the deployment process. Manual deployments work for simple sites but what
+            happens when you have 10 codebases and 4 databases behind load balancers?</p>
+            <p>Don't make your CI a collection of scripts for different servers. It's a mess.Remember this?</p>
+            <pre><code>drush sql-sync @sitename.staging @sitename</code></pre>
+            <p>Notice the second alias? no .env prefix, push your database to all environments/masters/slaves in one go
+            drush aliases have hierarchy which allows you to deploy to sub/supersets depending on how you configure.</p>
+        </div>
     </div>
+    <!-- End impress container -->
 <script src="bower_components/impress.js/js/impress.js"></script>
 <script>impress().init();</script>
 </body>
