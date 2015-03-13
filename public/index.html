@@ -90,7 +90,7 @@ $aliases['vagrant'] = array(
 );
             </pre>
         </div>
-        <div class="step slide" data-x="16000">
+        <div class="step slide" data-x="5000">
             <h4>Ever update your project? Need fine tune control of versioning?</h4>
             <ul>
                 <li>Drupal.org has structure that allows you to download any version of a project including
@@ -102,15 +102,15 @@ $aliases['vagrant'] = array(
                 </li>
                 <li>Update your sites quickly and easily.
                     <pre class="prettyprint">
-drush @sitename.local up --lock=media,fieldcollection,mediacrop
-drush @sitename.local test-run --xml=/path/to/jenkins
+$drush @sitename.local up --lock=media,fieldcollection,mediacrop
+$drush @sitename.local test-run --xml=/path/to/jenkins
                     </pre>
                 </li>
             </ul>
             <p>Using git alone and updating by downloading and placing files you are almost promised that at some point
             you will loose a patch or get non-dev version when you need it for functionality.</p>
         </div>
-        <div class="step slide" data-x="12000">
+        <div class="step slide" data-x="6000">
             <h4>Stop overriding php.ini settings.</h4>
             <p>You/your developers would never overwite php.ini memory limits just to import a large file or
                 particularly large set of bash files right? Right?</p>
@@ -121,7 +121,7 @@ drush @sitename.local test-run --xml=/path/to/jenkins
                 hungry applications.
             </p>
         </div>
-        <div class="step slide" data-x="6000">
+        <div class="step slide" data-x="7000">
             <h4>What developers are missing.</h4>
             <p>The first and biggest thing is writing code over and over again.(yes I'm starting in drush contrib).<br>
                 <a href="https://www.drupal.org/project/module_builder">
@@ -131,17 +131,22 @@ drush @sitename.local test-run --xml=/path/to/jenkins
                     https://www.drupal.org/project/console
                 </a>(not drush, works the same though)
             </p>
+            <pre class="prettyprint">
+$drush @sitename.local mb my_module menu cron form form_alter permissions
+menu_alter update install --write --name="My module" --dep="forum views"
+            </pre>
         </div>
-        <div class="step slide" data-x="7000">
+        <div class="step slide" data-x="8000">
             <h4>Export config from multiple environment using ctools and features. Don't wait for 'status' of
                 a feature.
             </h4>
             <p>Large sites with lots of features are slow to work with. Features UI is PAINFULLY slow.</p>
             <p>Everytime you navigate to see the status of your feature it can take minutes per load. This
             can very easily add to hours of overhead when troubleshooting configuration.</p>
-            <pre class="prettyprint linenums">drush @sitename.local features-diff feature_name</pre>
+            <pre class="prettyprint">
+$drush @sitename.local features-diff feature_name</pre>
         </div>
-        <div class="step slide" data-x="8000">
+        <div class="step slide" data-x="9000">
             <h4>Another example: I need to recreate code that is over several features!</h4>
             Without drush:
             <ul>
@@ -149,27 +154,28 @@ drush @sitename.local test-run --xml=/path/to/jenkins
                 <li>Click recreate/download</li>
                 <li>Repeat x times</li>
             </ul>
-            With drush: <pre class="prettyprint">drush @sitename.local features-update-all -y</pre>
+            With drush: <pre class="prettyprint">
+$drush @sitename.local features-update-all -y</pre>
             <img src="images/compiling.png">
         </div>
-        <div class="step slide" data-x="9000">
+        <div class="step slide" data-x="10000">
             With drush and nix magic (probably want to alias this one):
             <pre class="prettyprint">
-drush fd | grep -E 'Overridden[[:space:]]+$' \|
+$drush fd | grep -E 'Overridden[[:space:]]+$' \|
 sed -E 's/[[:space:]]*Enabled[[:space:]]*Overridden[[:space:]]*//' \ |
 sed -E 's/.*[[:space:]]//' \| xargs drush fd
             </pre>
             This line of code has saved me personally hundreds of hours. You wouldn't believe how much time waiting
             for feature status can eat away 1-2 minutes at a time.
         </div>
-        <div class="step slide" data-x="10000">
+        <div class="step slide" data-x="11000">
             <h4>Moving databases....constantly.</h4>
             <p>Drupal config is a pain because of how it's set up we are constantly moving databases around. Do this
             the smart way.
-            <pre class="prettyprint">drush sql-sync @somesite.live @somesite.local</pre></p>
+            <pre class="prettyprint">$drush sql-sync @somesite.live @somesite.local</pre></p>
             <p>Or you could:</p>
         </div>
-        <div class="step slide" data-x="11000">
+        <div class="step slide" data-x="12000">
             <h4>It's your call</h4>
             <p>
                 <pre style="float:left; margin-right: 10px; margin-top: 0px; display: inline;" class="prettyprint shell">
@@ -187,34 +193,37 @@ $mysql -uSomeNewDrupalUser -p anotherNewTable < ~/somefile.sql
         <div class="step slide" data-x="13000">
             <h4>Moving content</h4>
             <p>No reason to ever build a vbo view for exporting content. Use drush.</p>
-            <p><pre class="prettyprint">drush @sitename.live ne-node-export --sql="SELECT nid FROM node where type='your_content_type' and status=0" > ~/myoutput.xml</pre></p>
+            <p><pre class="prettyprint">
+$drush @sitename.live ne-node-export
+--sql="SELECT nid FROM node where type='your_content_type' and status=0" >
+~/myoutput.xml</pre></p>
             <p>Need to debug a node on a live site? Don't want to pull down a 5GB db dump to your local? Don't want
-            to enable devel and debug on prod?</p><p><pre class="prettyprint">drush @sitename.live ev "print_r(node_load(123);"</pre></p>
+            to enable devel and debug on prod?</p><p><pre class="prettyprint">$drush @sitename.live ev "print_r(node_load(123);"</pre></p>
         </div>
         <div class="step slide" data-x="14000">
             <h4>Continuous Integration</h4>
             <p>Drush is a linchpin in the deployment process. Manual deployments work for simple sites but what
             happens when you have 10 codebases and 4 databases behind load balancers?</p>
             <p>Don't make your CI a collection of scripts for different servers. It's a mess.Remember this?</p>
-            <pre class="prettyprint">drush sql-sync @sitename.staging @sitename</pre>
+            <pre class="prettyprint">$drush sql-sync @sitename.staging @sitename</pre>
             <p>Push your database to all environments/masters/slaves in one go.<br>
             Drush aliases have hierarchy which allows you to deploy to sub/supersets depending on how you configure.</p>
         </div>
-        <div class="step slide" data-x="14000">
+        <div class="step slide" data-x="15000">
             <h4>Site hacked?</h4>
             <p>Don't try to sanitize your server. We all know (or should) that it's trivially easy to miss some php file
             on the server running somewhere that will just redo the damage.</p>
             <p>Use drush make to rebuild your servers quick and efficiently. Then you just have to worry about the
             database which is easier and safer to sanitize.</p>
             <pre class="prettyprint">
-drush make mysitemakefile.make
-drush site-install --db-url=account:pass@Hostname/dbName
-drush sql-connect < sanitizedDB.sql
-drush pm-enable -y stage_file_proxy
-drush variable-set stage_file_proxy_origin "http://oldsite.org/"
+$drush make mysitemakefile.make
+$drush site-install --db-url=account:pass@Hostname/dbName
+$drush sql-connect < sanitizedDB.sql
+$drush pm-enable -y stage_file_proxy
+$drush variable-set stage_file_proxy_origin "http://oldsite.org/"
             </pre>
         </div>
-        <div class="step slide">
+        <div class="step slide" data-x="16000">
             <h4>Lock down your servers. Simplify Security</h4>
             <p>There is no reason for you to log on to a server. Drush gives you the tools to work remotely
             using aliases. One user that can only execute a subset of commands.<br> 1 key to rotate, no one altering
