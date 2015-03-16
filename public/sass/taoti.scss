@@ -87,7 +87,9 @@ pre.prettyprint {
 
   text-shadow: rgba(0,0,0,.01) 0 0 1px; /* Chrome @font-face anti-aliasing fix */
 
-  // outline: 1px dotted aqua;
+  .notes {
+    display: none;
+  }
 }
 
 #intro {
