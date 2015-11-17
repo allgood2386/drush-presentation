@@ -78,41 +78,35 @@
         </div>
         <div class="step slide" data-x="4000"><pre class="prettyprint">
 /**
-* @file
-* somewebsite.aliases.drushrc.php
-* Depends on the following env variables being set.
-* Place in your ~/.drush/drushrc.php
-* global $dev_user
-* $dev_user = 'yourSSHUserName';
-* Repeat for any other environments
-* # ln -s $projectRoot/somewebsite/somewebsite.aliases.drushrc.php ~/.drush/
-*/
-global $dev_user;
-global $blkmsh_user;
+ * @file
+ * example.aliases.drushrc.php
+ */
+
 $home = drush_server_home();
-$aliases['dev'] = array('env' => 'dev',
-    'root' => '/var/www/vhosts/somewebsite.org/public/docroot',
-    'uri' => 'http://user:pass@somewebsite.taotidev.com',
-    'remote-user' => $dev_user,
-    'remote-host' => 'somewebsite.taotidev.com',
+
+$aliases['dev'] = array(
+  'env' => 'dev',
+  'root' => '/var/www/cascade/dev/sitename/htdocs/',
+  'uri' => 'http://dev.sitename.somedomain.blackmesh.com',
+  'remote-user' => 'drush',
+  'remote-host' => 'dev.sitename.somedomain.blackmesh.com',
+  'ssh-options' => "-i  " . $home . "/.ssh/drush-dev",
+  'path-aliases' => array(
+    '%files' => 'sites/default/files',
+    '%drush-script' => '/usr/local/bin/drush6',
+  )
 );
 $aliases['prod'] = array(
-    'env' => 'prod',
-    'root' => '/var/www/somewebsite.org/htdocs/docroot',
-    'uri' => 'https://somewebsite.org',
-    'remote-user' => $blkmsh_user,
-    'remote-host' => 'somewebsite.org',
-    'path-aliases' => array(
-        '%drush' => '/optcd/scripts/drush',
-        '%site' => 'sites/default/',
-    ),
-);
-$aliases['vagrant'] = array(
-    'root' => '/var/www/docroot',
-    'uri' => 'http://somewebsite.vagrant',
-    'remote-user' => 'vagrant',
-    'remote-host' => 'somewebsite.vagrant',
-    'ssh-options' => "-p 22 -i " . $home . "/.vagrant.d/insecure_private_key",
+  'env' => 'prod',
+  'root' => '/var/www/cascade/prod/sitename/htdocs',
+  'uri' => 'http://prod.sitename.somedomain.blackmesh.com',
+  'remote-user' => 'drush',
+  'remote-host' => 'prod.sitename.somedomain.blackmesh.com',
+  'ssh-options' => "-i  " . $home . "/.ssh/drush-prod",
+  'path-aliases' => array(
+    '%files' => 'sites/default/files',
+    '%drush-script' => '/usr/local/bin/drush6',
+  )
 );
             </pre>
             <div class="notes">
@@ -171,9 +165,9 @@ $drush @sitename.local test-run --xml=/path/to/jenkins
             <h4>STOP overriding php.ini settings. To upload crap
                 like database backups, large files, or large imports.</h4>
             <p>
-                <img src="images/badroblowe.jpg" style="float:left; margin-right: 10px; width: 580px">Don't be this Guy.
-                Use php-cli.ini and run your operations through separate user. The bad decision Rob Lowe leads to memory
-                hungry applications.
+                <img src="images/hugemistake.jpg" style="float:left; margin-right: 10px; width: 580px">Don't be this Guy.
+                Use php-cli.ini and run your operations through separate user. The huge mistake is how you end up with
+                large memory hungry applications with a view that uses 700MB to be generated.
             </p>
             <div class="notes"><ul>
                 <li>STOP overriding php.ini settings. To upload crap
