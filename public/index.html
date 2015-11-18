@@ -6,7 +6,7 @@
     <title>Drush | A required tool for developers and sysadmins. | by Rich Allen</title>
     <meta name="description" content="A presenation for showing the usefulness of drush on modern drupal projects." />
     <meta name="author" content="Rich Allen" />
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
     <link href="/stylesheets/taoti.css" media="screen" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="bower_components/impress.js/favicon.png" />
     <link rel="bower_components/impress.js/apple-touch-icon" href="apple-touch-icon.png" />
@@ -15,9 +15,50 @@
 </head>
 <body onload="prettyPrint()">
     <div id="impress">
-        <div class="step slide">
+        <div class="step slide" data-y="2000">
             <h2>Drush:</h2><h3>A required tool for modern drupal developers and sysadmins.</h3>
-            <h4>by Rich Allen and with Taoti Creative</h4>
+            <h4>by Rich Allen, Bree Benesh with help from Taoti Creative</h4>
+        </div>
+        <div class="step slide" data-y="3000">
+            <h4>Introductions are in order:</h4>
+            <h5>Bree Benesh</h5>
+            <p>Bree is a Drupal developer with over six years of experience in web development.
+                She loves creative problem solving and is always looking to learn smarter,
+                better ways of doing things. Down-to-earth and passionate about leveraging technology to
+                empower people, she loves building things that make a difference in people’s lives and is
+                an enthusiastic advocate of making tech accessible to everyone. Beyond the 9-to-5, Bree enjoys
+                traveling to far-off (and nearby) lands, adventurous eating, whimsy, long lazy days at beaches and
+                wineries, weird horror movies and summertime blockbusters, figure drawing, tea parties, and coveting
+                other people’s pets (especially really really ugly dogs).
+                <br>Taken from her <a href="//www.drupal.org/u/zombree">profile</a> on drupal.org,
+                I am not this creative.
+                <br><a href="//www.linkedin.com/in/breebenesh">LinkedIn</a>
+                <br><a href="//github.com/zombree">Github</a>
+            </p>
+        </div>
+        <div class="step slide" data-y="4000">
+            <h5>Rich Allen</h5>
+            <p>I'm a developer who's worked in the drupal community for over 6 years. Have worked with clients ranging
+                from small ngo's to larger government projects such as data.gov, itspending.gov, and performance.gov.
+                I'm currently at my 3rd year at <a href="//taoti.com/">Taoti Creative</a> as a Technical Lead and
+                Project Architect for a variety of clients ranging from .org, .ngo, and commercial clients as well.<br>
+                I also play SysAdmin/DevOps on the side; putting out fires (of the virtual kind) when needed.
+            </p>
+            <p>
+                <a href="//www.drupal.org/u/richard.c.allen2386">Drupal.org Profile</a><br>
+                <a href="//www.linkedin.com/in/rich-allen-91954411">LinkedIn</a><br>
+                <a href="//github.com/allgood2386/">Github</a><br>
+            </p>
+        </div>
+        <div class="step slide" data-y="5000">
+            <h4>Drupal Global Training Days</h4>
+            <p>There is a lot of work going into Drupal Training Days. A huge chunk of drupals sucess has been
+                accessibility to non-developers and quickly training folks of all different technical levels on drupal.
+                Find out more about the community <a href="//youtu.be/rgLUwTlVZkM">here</a>.</p>
+            <p>At the end of the day we're asking you to
+                <a href="//assoc.drupal.org/global-training-days-survey-attendees">fill out</a> a brief survey on
+                training days and how it can be improved.
+            </p>
         </div>
         <div class="step slide" data-x="1000">
             <h4>What is drush?</h4>
@@ -63,7 +104,7 @@
             </p>
             <p>
                 Full documentation at
-                <a href="https://github.com/drush-ops/drush/blob/master/examples/example.aliases.drushrc.php">
+                <a href="//github.com/drush-ops/drush/blob/master/examples/example.aliases.drushrc.php">
                     https://github.com/drush-ops/drush/blob/master/examples/example.aliases.drushrc.php
                 </a></p>
             <div class="notes">
@@ -797,6 +838,9 @@ $drush variable-set stage_file_proxy_origin "http://oldsite.org/"
             using aliases. One user that can only execute a subset of commands.<br> 1 key to rotate, no one altering
                 configuration while trying to troubleshoot.
             </p>
+        </div>
+        <div class="step slide" data-x="20000">
+            <h4>Questions?</h4>
         </div>
     </div>
     <!-- End impress container -->

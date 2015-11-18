@@ -1,0 +1,69 @@
+<?php
+/**
+ * A drupal aliase file example.
+ *
+ * @file
+ * example.aliases.drushrc.php
+ *
+ * This is an example file. The dev/stage/prod examples are helpful as they can
+ * be a quick way to copy, then find and replace, and set up a new aliases if
+ * one hasn't been created. All aliases should be contained in
+ * sites/all/drush/<sitename>.aliases.drushrc.php so they autoloaded.
+ *
+ * Finally a commit of the vagrant environment isn't necessary. If you'd like
+ * to copy paste this into the same directory as vagrant.aliases.drushrc.php
+ * this is a good way to quickly set up drush aliaes on vagrant.
+ *
+ * Finally I've added a php var which does nothing but documentation on the
+ * php version this was worked on.
+ *
+ * PHP Version 5.6
+ *
+ */
+
+$home = drush_server_home();
+
+
+$aliases['dev'] = array(
+  'env' => 'dev',
+  'root' => '/var/www/cascade/dev/somesite.taoti.com/htdocs/docroot',
+  'uri' => 'http://dev.somesite.taoti.com.blackmesh.com',
+  'remote-user' => 'drush',
+  'remote-host' => 'dev.somesite.taoti.com.blackmesh.com',
+  'ssh-options' => "-i  " . $home . "/.ssh/drush-dev",
+  'path-aliases' => array(
+    '%files' => 'sites/default/files',
+    '%drush-script' => '/usr/local/bin/drush6',
+  )
+);
+$aliases['staging'] = array(
+  'env' => 'stg',
+  'root' => '/var/www/cascade/stage/somesite.taoti.com/htdocs/docroot',
+  'uri' => 'http://stage.somesite.taoti.com.blackmesh.com',
+  'remote-user' => 'drush',
+  'remote-host' => 'stage.somesite.taoti.com.blackmesh.com',
+  'ssh-options' => "-i  " . $home . "/.ssh/drush-dev",
+  'path-aliases' => array(
+    '%files' => 'sites/default/files',
+    '%drush-script' => '/usr/local/bin/drush6',
+  )
+);
+$aliases['prod'] = array(
+  'env' => 'prod',
+  'root' => '/var/www/cascade/prod/somesite.taoti.com/htdocs/docroot',
+  'uri' => 'https://somesite.org',
+  'remote-user' => 'drush',
+  'remote-host' => 'prod.somesite.taoti.com.blackmesh.com',
+  'ssh-options' => "-i  " . $home . "/.ssh/drush-prod",
+  'path-aliases' => array(
+    '%files' => 'sites/default/files',
+    '%drush-script' => '/usr/local/bin/drush6',
+  )
+);
+$aliases['vagrant'] = array(
+  'root' => '/var/www/docroot',
+  'uri' => 'http://somesite.dev',
+  'remote-user' => 'vagrant',
+  'remote-host' => 'somesite.dev',
+  'ssh-options' => "-p 22 -i " . $home . "/.vagrant.d/insecure_private_key",
+);
