@@ -67,3 +67,6 @@ $aliases['vagrant'] = array(
   'remote-host' => 'somesite.dev',
   'ssh-options' => "-p 22 -i " . $home . "/.vagrant.d/insecure_private_key",
 );
+
+$options['shell-aliases']['git-log'] = '!git log';
+$options['shell-aliases']['git-branch'] = '!git branch';
